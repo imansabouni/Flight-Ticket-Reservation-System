@@ -4,30 +4,28 @@ A web-based flight ticket reservation system developed using HTML, CSS, JavaScri
 
 ## Overview
 
-This project provides a simple flight booking experience through a user-friendly web interface. Users can register, log in, browse available flights, select seats, enter passenger information, complete payments, and view special offers.
+This project simulates a complete flight ticket reservation process through a simple and user-friendly web interface. Users can create an account, log in, search available flights, choose seats, enter passenger details, complete payment, and browse special offers.
 
 ## Features
 
 - User registration and login
-- Flight booking interface
+- Flight booking
 - Seat selection
-- Passenger information management
-- Payment page
-- Special offers and discounts
+- Passenger information form
+- Payment process
 - User account management
+- Special offers and discounts
 - Customer reviews
 - Contact and About pages
 - SQLite database integration
 
 ## Technologies
 
-| Technology | Purpose |
-|------------|---------|
-| HTML5 | Page structure |
-| CSS3 | User interface styling |
-| JavaScript | Client-side functionality |
-| Python | HTML update utilities |
-| SQLite | Database |
+- HTML5
+- CSS3
+- JavaScript
+- Python
+- SQLite
 
 ## Project Structure
 
@@ -56,46 +54,20 @@ Flight-Ticket-Reservation-System/
 └── README.md
 ```
 
-## Screenshots
+## Installation
 
-| Login | Seat Selection |
-|-------|----------------|
-| ![](images/login.png) | ![](images/seat-selection.png) |
-
-| Passenger Information | Payment |
-|-----------------------|---------|
-| ![](images/passenger-information.png) | ![](images/payment.png) |
-
-| Account | Discounts |
-|---------|-----------|
-| ![](images/account.png) | ![](images/discounts.png) |
-
-| About | Contact |
-|-------|----------|
-| ![](images/about-us.png) | ![](images/contact.png) |
-
-| Customer Reviews |
-|------------------|
-| ![](images/customer-reviews.png) |
-
-## Getting Started
-
-### Requirements
-
-- Any modern web browser
-
-### Installation
+Clone the repository:
 
 ```bash
 git clone https://github.com/imansabouni/Flight-Ticket-Reservation-System.git
 ```
 
-Open the project folder and launch the HTML files in your preferred browser.
+Open the project folder and launch any HTML page in your preferred web browser.
 
-## Project Purpose
+## Purpose
 
-This project was developed as an educational web application to simulate the complete workflow of a flight ticket reservation system, including booking, seat selection, passenger information, and payment.
+This project was developed as an educational web application that demonstrates the complete workflow of an online flight ticket reservation system, including booking, seat selection, passenger information, and payment.
 
 ## License
 
-This project was developed for educational purposes.
+This project is intended for educational purposes.
