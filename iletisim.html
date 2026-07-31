@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>İletişim | ZAKAN BİLET</title>
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>Bizimle İletişime Geçin</header>
+
+  <div class="container container-custom">
+    <div class="row">
+      <!-- Sol Taraf: Sosyal Medya & İletişim Bilgileri -->
+      <div class="col-md-6 mb-3" style="padding-right: 40px;">
+        <h4 class="mb-3" style="text-align: left; color: #1e293b; font-weight: 700;">Bize Ulaşın</h4>
+        <p style="text-align: left; margin-bottom: 20px;">Sorularınız mı var? 7/24 müşteri hizmetlerimiz veya sosyal medya kanallarımız üzerinden anında destek alabilirsiniz.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="https://wa.me/905551112233" target="_blank" class="btn" style="background: linear-gradient(135deg, #25D366, #128C7E); text-align: left; padding: 10px 20px;">
+            <i class="fab fa-whatsapp" style="margin-right: 10px; font-size: 1.2rem;"></i> WhatsApp Destek
+          </a>
+          <a href="https://t.me/kullaniciadi" target="_blank" class="btn" style="background: linear-gradient(135deg, #0088cc, #005c8a); text-align: left; padding: 10px 20px;">
+            <i class="fab fa-telegram-plane" style="margin-right: 10px; font-size: 1.2rem;"></i> Telegram
+          </a>
+          <a href="mailto:info@zakanbilet.com" class="btn" style="background: linear-gradient(135deg, #ea4335, #b31412); text-align: left; padding: 10px 20px;">
+            <i class="fa-solid fa-envelope" style="margin-right: 10px; font-size: 1.2rem;"></i> info@zakanbilet.com
+          </a>
+          <a href="tel:+905551112233" class="btn" style="background: linear-gradient(135deg, #1e293b, #0f172a); text-align: left; padding: 10px 20px;">
+            <i class="fa-solid fa-phone" style="margin-right: 10px; font-size: 1.2rem;"></i> +90 555 111 22 33
+          </a>
+        </div>
+      </div>
+
+      <!-- Sağ Taraf: İletişim Formu -->
+      <div class="col-md-6 mb-3" style="padding-left: 40px;">
+        <div class="card p-3" style="background: rgba(255,255,255,0.5); border-radius: 16px; border: 1px solid rgba(255,255,255,0.8);">
+          <h4 class="text-center mb-3">Mesaj Gönder</h4>
+          <form onsubmit="event.preventDefault(); showSuccessMessage();">
+            <div class="mb-2">
+              <label for="name" class="form-label">Adınız Soyadınız</label>
+              <input type="text" class="form-control" id="name" placeholder="Adınızı girin" required style="margin-bottom: 10px;" />
+            </div>
+            <div class="mb-2">
+              <label for="email" class="form-label">E-posta Adresiniz</label>
+              <input type="email" class="form-control" id="email" placeholder="mail@ornek.com" required style="margin-bottom: 10px;" />
+            </div>
+            <div class="mb-2">
+              <label for="message" class="form-label">Mesajınız</label>
+              <textarea class="form-control" id="message" rows="3" placeholder="Nasıl yardımcı olabiliriz?" required style="margin-bottom: 10px; resize: none;"></textarea>
+            </div>
+            <button type="submit" class="btn submit-button w-100">Gönder</button>
+          </form>
+          
+          <div id="success-msg" style="display: none; text-align: center; color: #25D366; font-weight: bold; margin-top: 15px;">
+            ✅ Mesajınız başarıyla iletildi!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showSuccessMessage() {
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+      const msg = document.getElementById('success-msg');
+      msg.style.display = 'block';
+      setTimeout(() => {
+        msg.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+
+      <footer>
+    <div class="footer-content">
+      <span style="color: #764ba2; font-weight: 800;"><i class="fa-solid fa-plane"></i> ZAKAN BİLET © 2025</span>
+      <span class="divider">|</span>
+      <a href="giris.html" style="color: #4facfe;"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+      <a href="hakkimizda.html" style="color: #f72585;"><i class="fa-solid fa-circle-info"></i> Hakkımızda</a>
+      <a href="iletisim.html" style="color: #f8961e;"><i class="fa-solid fa-envelope"></i> İletişim</a>
+    </div>
+  </footer>
+
+</body>
+</html>

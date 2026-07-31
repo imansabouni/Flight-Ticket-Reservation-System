@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Uçak Bileti</title>
+    <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>Uçak Bileti Al</header>
+    <div class="container container-custom">
+        <form id="ticketForm" novalidate>
+            <div class="row">
+                <!-- Nereden -->
+                <div class="col-md-6 mb-3">
+                    <label for="from" class="form-label">Nereden:</label>
+                    <select id="from" name="from" class="form-select" onchange="updateToOptions()" required>
+                        <option value="istanbul">İstanbul</option>
+                        <option value="ankara">Ankara</option>
+                        <option value="izmir">İzmir</option>
+                        <option value="antalya">Antalya</option>
+                        <option value="adana">Adana</option>
+                    </select>
+                </div>
+                <!-- Nereye -->
+                <div class="col-md-6 mb-3">
+                    <label for="to" class="form-label">Nereye:</label>
+                    <select id="to" name="to" class="form-select" required>
+                        <option value="ankara">Ankara</option>
+                        <option value="izmir">İzmir</option>
+                        <option value="antalya">Antalya</option>
+                        <option value="adana">Adana</option>
+                        <option value="istanbul">İstanbul</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Gidiş Tarihi -->
+                <div class="col-md-6 mb-3">
+                    <label for="departure_date" class="form-label">Gidiş Tarihi:</label>
+                    <input type="date" id="departure_date" name="departure_date" class="form-control" onchange="saveDepartureDate()" required />
+                </div>
+                <!-- Dönüş Tarihi -->
+                <div class="col-md-6 mb-3" id="return_date_group" style="display: none;">
+                    <label for="return_date" class="form-label">Dönüş Tarihi:</label>
+                    <input type="date" id="return_date" name="return_date" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Yolcu Sayısı -->
+                <div class="col-md-6 mb-3">
+                    <label for="passengers" class="form-label">Yolcu Sayısı:</label>
+                    <input type="number" id="passengers" name="passengers" class="form-control" min="1" max="10" value="1" onchange="updatePassengerForm()" required />
+                </div>
+                <!-- Gidiş-Dönüş -->
+                <div class="col-md-6 mb-3" style="display:flex; align-items:center; padding-top:25px;">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="trip" id="oneway" value="oneway" checked />
+                        <label class="form-check-label" for="oneway">Gidiş</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="trip" id="roundtrip" value="roundtrip" />
+                        <label class="form-check-label" for="roundtrip">Gidiş-Dönüş</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yolcu Bilgileri -->
+            <div id="passenger-info" class="passenger-info"></div>
+
+            <!-- Gönder Butonu -->
+            <button type="button" class="btn btn-primary mt-4" onclick="validateForm()">Bilet Ara</button>
+        </form>
+    </div>
+
+    <script>
+        // Sayfa yüklendiğinde
+        window.onload = function () {
+            updateToOptions();
+            updatePassengerForm();
+
+            const today = new Date().toISOString().split("T")[0];
+            document.getElementById("departure_date").setAttribute("min", today);
+            document.getElementById("return_date").setAttribute("min", today);
+        };
+
+        // Gidiş-Dönüş seçimine göre dönüş tarihi göster/gizle
+        document.querySelectorAll('input[name="trip"]').forEach((radio) => {
+            radio.addEventListener("change", function () {
+                const returnDateGroup = document.getElementById("return_date_group");
+                if (this.value === "roundtrip") {
+                    returnDateGroup.style.display = "block";
+                    document.getElementById("return_date").setAttribute("required", "required");
+                } else {
+                    returnDateGroup.style.display = "none";
+                    document.getElementById("return_date").removeAttribute("required");
+                    document.getElementById("return_date").value = "";
+                }
+            });
+        });
+
+        // Nereden seçeneğine göre Nereye seçeneklerini güncelle
+        function updateToOptions() {
+            const fromCity = document.getElementById("from").value;
+            const toSelect = document.getElementById("to");
+            const options = toSelect.querySelectorAll("option");
+
+            options.forEach((option) => {
+                option.disabled = option.value === fromCity;
+            });
+
+            // Eğer şu an seçili "to" seçeneği "from" ile aynı ise otomatik başka bir seçeneğe geçir
+            if (toSelect.value === fromCity) {
+                for (let opt of options) {
+                    if (!opt.disabled) {
+                        toSelect.value = opt.value;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Yolcu formunu yolcu sayısına göre güncelle
+        function updatePassengerForm() {
+            const passengerCount = parseInt(document.getElementById("passengers").value);
+            localStorage.setItem("passengerCount", passengerCount);
+            const passengerInfoDiv = document.getElementById("passenger-info");
+            passengerInfoDiv.innerHTML = "";
+
+            if (passengerCount < 1) {
+                alert("Lütfen en az 1 yolcu seçiniz.");
+                document.getElementById("passengers").value = 1;
+                return updatePassengerForm();
+            }
+
+            for (let i = 0; i < passengerCount; i++) {
+                passengerInfoDiv.innerHTML += `
+                <div class="row passenger-row g-3 align-items-center mb-3">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Ad" required />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Soyad" required />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Yaş" min="1" max="99" required />
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" required>
+                            <option value="" disabled selected>Cinsiyet</option>
+                            <option value="male">Erkek</option>
+                            <option value="female">Kadın</option>
+                        </select>
+                    </div>
+                </div>
+                `;
+            }
+        }
+
+        // Departure date'ı localStorage'a kaydet (boş fonksiyon, gerektiğinde ekle)
+        function saveDepartureDate() {
+            const departureDate = document.getElementById("departure_date").value;
+            localStorage.setItem("departureDate", departureDate);
+        }
+
+        // Form doğrulaması ve mesaj
+        function validateForm() {
+            const form = document.getElementById("ticketForm");
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Yolcu bilgilerini kontrol et
+            const passengers = document.querySelectorAll(".passenger-row");
+            let valid = true;
+
+            passengers.forEach((passenger) => {
+                const inputs = passenger.querySelectorAll("input, select");
+                inputs.forEach((input) => {
+                    if (!input.value || input.value.trim() === "") {
+                        valid = false;
+                    }
+                });
+            });
+
+            if (!valid) {
+                alert('Lütfen tüm bilgileri doldurduğunuzdan emin olun.');
+            } else {
+                window.location.href = "koltuklar.html";
+            }
+        }
+    </script>
+        <footer>
+    <div class="footer-content">
+      <span style="color: #764ba2; font-weight: 800;"><i class="fa-solid fa-plane"></i> ZAKAN BİLET © 2025</span>
+      <span class="divider">|</span>
+      <a href="giris.html" style="color: #4facfe;"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+      <a href="hakkimizda.html" style="color: #f72585;"><i class="fa-solid fa-circle-info"></i> Hakkımızda</a>
+      <a href="iletisim.html" style="color: #f8961e;"><i class="fa-solid fa-envelope"></i> İletişim</a>
+    </div>
+  </footer>
+</body> 
+</html>

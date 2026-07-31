@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZAKAN GİRİŞ YAP</title>
+  
+  
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+
+  <header>ZAKAN GİRİŞ YAP</header>
+
+  <div class="container">
+    <div class="login-box">
+      <h2>Giriş Yap</h2>
+      <form id="loginForm" action="indirimler.html" method="post">
+        <label for="email">E-posta:</label>
+        <input type="email" id="email" name="email" ... >
+
+        <label for="password">Şifre:</label>
+        <input type="password" id="password" name="password" ... >
+
+        <input type="submit" value="Giriş Yap">
+      </form>
+
+      <div class="links">
+        <a href="kayit.html">Kayıt Ol</a>
+        <a href="sifre.html">Şifremi Unuttum</a>
+      </div>
+    </div>
+  </div>
+
+      <footer>
+    <div class="footer-content">
+      <span style="color: #764ba2; font-weight: 800;"><i class="fa-solid fa-plane"></i> ZAKAN BİLET © 2025</span>
+      <span class="divider">|</span>
+      <a href="giris.html" style="color: #4facfe;"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+      <a href="hakkimizda.html" style="color: #f72585;"><i class="fa-solid fa-circle-info"></i> Hakkımızda</a>
+      <a href="iletisim.html" style="color: #f8961e;"><i class="fa-solid fa-envelope"></i> İletişim</a>
+    </div>
+  </footer>
+
+  
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Formun normal gönderimini engelle
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      
+      let kullanicilar = JSON.parse(localStorage.getItem('kullanicilar') || '[]');
+      
+      const user = kullanicilar.find(k => k.email === email && k.sifre === password);
+      
+      // Kayıtlı kullanıcı yoksa bile test hesabıyla girmeye izin ver
+      if (user || (email === 'test@zakan.com' && password === '123456')) {
+        // Doğru bilgiler, formdaki action sayfasına yönlendir
+        window.location.href = this.action;
+      } else {
+        alert("Hatalı e-posta veya şifre! Lütfen tekrar deneyin veya kayıt olun.");
+      }
+    });
+  </script>
+</body>
+</html>

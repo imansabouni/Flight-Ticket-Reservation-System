@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ödeme Sayfası</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>Ödeme Sayfası</header>
+
+  <div class="container container-custom">
+    <div class="seat-info mb-4">
+      <p>🕒 Seçilen Saat: <span id="selected-time">YOK</span></p>
+      <p>📅 Gidiş Tarihi: <span id="selected-date">YOK</span></p>
+      <p>💸 Toplam Ücret: <span id="total-price">0 $</span></p>
+    </div>
+
+    <form onsubmit="event.preventDefault(); submitPayment();">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="card-number" class="form-label">💳 Kart Numarası</label>
+          <input type="text" class="form-control" id="card-number" placeholder="Kart numaranızı girin" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="expiry-date" class="form-label">📆 Son Kullanma Tarihi</label>
+          <input type="text" class="form-control" id="expiry-date" placeholder="MM/YY" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="cvv" class="form-label">🔐 CVV</label>
+          <input type="text" class="form-control" id="cvv" placeholder="CVV kodunu girin" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="name-on-card" class="form-label">👤 Kart Üzerindeki İsim</label>
+          <input type="text" class="form-control" id="name-on-card" placeholder="Kart üzerindeki ismi girin" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="phone-number" class="form-label">📞 Telefon Numarası</label>
+          <input type="text" class="form-control" id="phone-number" placeholder="Telefon numaranızı girin" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="email" class="form-label">📧 E-posta Adresi</label>
+          <input type="email" class="form-control" id="email" placeholder="E-posta adresinizi girin" />
+        </div>
+      </div>
+
+      <button type="submit" class="btn submit-button w-100">💰 Ödemeyi Tamamla</button>
+    </form>
+  </div>
+
+  <div class="success-message" id="success-message" style="display:none; text-align:center; padding: 20px; font-weight: bold;">
+    ✅ Ödeme işlemi başarılı! <br>ZAKAN BİLET artık sizde!
+  </div>
+
+  <script>
+    window.onload = function () {
+      const selectedTime = localStorage.getItem('selectedTime') || 'Yok';
+      const selectedDate = localStorage.getItem('selectedDate') || 'Yok';
+      const totalPrice = localStorage.getItem('totalPrice') || '0 $';
+
+      document.getElementById('selected-time').textContent = selectedTime;
+      document.getElementById('selected-date').textContent = selectedDate;
+      document.getElementById('total-price').textContent = totalPrice;
+    };
+
+    function validateCardNumber(cardNumber) {
+      return /^\d{16}$/.test(cardNumber);
+    }
+
+    function validatephoneNumber(phoneNumber) {
+      return /^\d{11}$/.test(phoneNumber);
+    }
+
+    function validateEmail(email) {
+      return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
+    }
+
+    function submitPayment() {
+      const cardNumber = document.getElementById('card-number').value;
+      const expiryDate = document.getElementById('expiry-date').value;
+      const cvv = document.getElementById('cvv').value;
+      const nameOnCard = document.getElementById('name-on-card').value;
+      const phoneNumber = document.getElementById('phone-number').value;
+      const email = document.getElementById('email').value;
+
+      if (!cardNumber || !expiryDate || !cvv || !nameOnCard || !phoneNumber || !email) {
+        alert('❗ Lütfen tüm bilgilerinizi girin');
+        return;
+      }
+
+      if (!validateCardNumber(cardNumber)) {
+        alert('⚠️ Geçerli bir kart numarası girin!');
+        return;
+      }
+
+      if (!validatephoneNumber(phoneNumber)) {
+        alert('⚠️ Geçerli bir telefon numarası girin!');
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        alert('⚠️ Geçerli bir e-posta adresi girin!');
+        return;
+      }
+
+      document.querySelector('.container').style.display = 'none';
+      document.getElementById('success-message').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

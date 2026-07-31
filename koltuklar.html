@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Koltuk Seç</title>
+    <!-- Bootstrap CSS -->
+    
+
+    
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+    <header>
+        Koltuk Seç
+    </header>
+
+    <div class="container container-custom">
+        <div class="seat-selection">
+            <!-- Koltuklar -->
+            <div class="VİP" data-seat="1A">
+                1A
+                <div class="price-note">: 150 $</div> <!-- VIP fiyat notu -->
+            </div>
+            <div class="VİP" data-seat="2A">
+                2A
+                <div class="price-note">: 150 $</div> <!-- VIP fiyat notu -->
+            </div>
+            <div class="VİP" data-seat="3A">
+                3A
+                <div class="price-note">: 150 $</div> <!-- VIP fiyat notu -->
+            </div>
+            <div class="VİP" data-seat="4A">
+                4A
+                <div class="price-note">: 150 $</div> <!-- VIP fiyat notu -->
+            </div>
+            <div class="VİP" data-seat="5A">
+                5A
+                <div class="price-note">: 150 $</div> <!-- VIP fiyat notu -->
+            </div>
+            <div class="VİP" data-seat="6A">
+                6A
+                <div class="price-note">: 150 $</div> <!-- VIP fiyat notu -->
+            </div>
+
+            <div class="STANDART" data-seat="1B">
+                1B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="2B">
+                2B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="3B">
+                3B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="4B">
+                4B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="5B">
+                5B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="6B">
+                6B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="7B">
+                7B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="8B">
+                8B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="9B">
+                9B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="10B">
+                10B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="11B">
+                11B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+            <div class="STANDART" data-seat="12B">
+                12B
+                <div class="price-note">: 100 $</div> <!-- Standart fiyat notu -->
+            </div>
+        </div>
+
+        <!-- Saat Seçimi -->
+        <div class="time-selection">
+            <div class="time-option" data-time="09:00">09:00</div>
+            <div class="time-option" data-time="12:00">12:00</div>
+            <div class="time-option" data-time="15:00">15:00</div>
+            <div class="time-option" data-time="18:00">18:00</div>
+        </div>
+
+        <div class="seat-info" id="seat-info">
+            <p> Seçilen Koltuklar: <span id="selected-seat">Yok</span></p>
+            <p>💺Koltuk Türü: <span id="seat-type">Yok</span></p>
+            <p>🕒 Seçilen Saat: <span id="selected-time">Yok</span></p>
+            <p>💵 Toplam Ücret: <span id="total-price">0 $</span></p>
+        </div>
+
+        <button class="submit-button btn btn-primary" onclick="confirmSelection()">Ödeme Sayfasına Git</button>
+    </div>
+
+    
+    
+
+    <script>
+    const passengerCount = localStorage.getItem('passengerCount') || 1;
+    const seats = document.querySelectorAll('.VİP, .STANDART');
+    const timeOptions = document.querySelectorAll('.time-option');
+    let selectedSeats = [];
+    let selectedTime = null;
+
+    const vipPrice = 150;
+    const standartPrice = 100;
+
+    // Koltuk Seçme
+    seats.forEach(seat => {
+        seat.addEventListener('click', () => {
+            const seatId = seat.getAttribute('data-seat');
+            const seatType = seat.classList.contains('VİP') ? 'VİP' : 'STANDART';
+
+            if (selectedSeats.includes(seatId)) {
+                // Zaten seçilmişse kaldır
+                selectedSeats = selectedSeats.filter(id => id !== seatId);
+                seat.classList.remove('selected');
+            } else {
+                // Seçili koltuk sayısı yolcu sayısını aşmasın
+                if (selectedSeats.length < passengerCount) {
+                    selectedSeats.push(seatId);
+                    seat.classList.add('selected');
+                } else {
+                    alert(`En fazla ${passengerCount} koltuk seçebilirsiniz.`);
+                }
+            }
+
+            updateInfo();
+        });
+    });
+
+    // Saat seçme
+    timeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            timeOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            selectedTime = option.getAttribute('data-time');
+            updateInfo();
+        });
+    });
+
+    function updateInfo() {
+    document.getElementById('selected-seat').textContent = selectedSeats.length > 0 ? selectedSeats.join(', ') : 'Yok';
+
+    // Koltuk türleri - seçilen tüm koltuk türlerini topla ve virgülle ayır
+    let seatTypes = selectedSeats.map(seatId => {
+        const seatEl = document.querySelector(`[data-seat="${seatId}"]`);
+        return seatEl.classList.contains('VİP') ? 'VİP' : 'STANDART';
+    });
+    // Aynı türler tekrar etmesin istersen Set kullanabilirsin:
+    // seatTypes = [...new Set(seatTypes)];
+    
+    document.getElementById('seat-type').textContent = seatTypes.length > 0 ? seatTypes.join(', ') : 'Yok';
+
+    // Saat bilgisi
+    document.getElementById('selected-time').textContent = selectedTime || 'Yok';
+
+    // Ücret hesaplama
+    let total = 0;
+    selectedSeats.forEach(seatId => {
+        const el = document.querySelector(`[data-seat="${seatId}"]`);
+        if (el.classList.contains('VİP')) total += vipPrice;
+        else total += standartPrice;
+    });
+    document.getElementById('total-price').textContent = total + ' $';
+   }
+
+    function confirmSelection() {
+        if (selectedSeats.length == 0 || !selectedTime) {
+            alert("Lütfen koltuk ve saat seçimi yapınız.");
+            return;
+        }
+
+        // Bilgileri localStorage'a kaydet
+        localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+        localStorage.setItem('seatType', document.getElementById('seat-type').textContent);
+        localStorage.setItem('selectedTime', selectedTime);
+        localStorage.setItem('totalPrice', document.getElementById('total-price').textContent);
+
+        // Ödeme sayfasına yönlendir
+        window.location.href = 'kartodeme.html';
+    }
+</script> 
+
+
+
+</body>
+</html>

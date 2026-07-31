@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yorumlar</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <header>Kullanıcı Yorumları</header>
+
+  <div class="container container-custom">
+    <div class="row">
+      <!-- Sol Taraf: Yorum Listesi -->
+      <div class="col-md-6" style="max-height: 400px; overflow-y: auto; padding-right: 15px;">
+        <div class="row" id="comment-container">
+          <!-- Yorumlar buraya eklenecek -->
+        </div>
+      </div>
+
+      <!-- Sağ Taraf: Yorum Formu -->
+      <div class="col-md-6">
+        <div class="card comment-card p-3" style="background: rgba(255,255,255,0.5); border-radius: 16px;">
+          <h4 class="text-center mb-3">Yorumunuzu Paylaşın</h4>
+          <form onsubmit="addComment(event)">
+            <div class="mb-2">
+              <label for="name" class="form-label">Adınız</label>
+              <input type="text" class="form-control" id="name" placeholder="Adınızı girin" required />
+            </div>
+            <div class="mb-2">
+              <label for="comment" class="form-label">Yorum</label>
+              <textarea class="form-control" id="comment" rows="2" placeholder="Yorumunuzu yazın" required></textarea>
+            </div>
+            <div class="mb-2">
+              <label for="stars" class="form-label">Kaç yıldız veriyorsunuz?</label>
+              <select id="stars" class="form-select" required>
+                <option value="" disabled selected>Seçiniz</option>
+                <option value="1">★ ☆ ☆ ☆ ☆</option>
+                <option value="2">★ ★ ☆ ☆ ☆</option>
+                <option value="3">★ ★ ★ ☆ ☆</option>
+                <option value="4">★ ★ ★ ★ ☆</option>
+                <option value="5">★ ★ ★ ★ ★</option>
+              </select>
+            </div>
+            <button type="submit" class="btn submit-button w-100">Gönder</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Yorumları localStorage'dan yükle ve ekrana bas
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem('comments')) || [];
+      const container = document.getElementById('comment-container');
+      container.innerHTML = '';
+      
+      if(comments.length === 0) {
+        container.innerHTML = '<p style="text-align:center; width:100%; margin-top:20px;">Henüz yorum yapılmamış. İlk yorumu siz yapın!</p>';
+      }
+
+      comments.forEach(({ name, text, stars, likes }) => {
+        container.appendChild(createCommentCard(name, text, stars, likes));
+      });
+    }
+
+    // Yorum kartı oluşturma fonksiyonu
+    function createCommentCard(name, text, stars, likes) {
+      const col = document.createElement('div');
+      col.className = 'col-md-12 mb-3'; // Tam genişlik kullan, çünkü zaten sol kolonda
+
+      // Yıldızları oluştur
+      let starDisplay = '';
+      for (let i = 1; i <= 5; i++) {
+        starDisplay += i <= stars ? '★ ' : '☆ ';
+      }
+      starDisplay = starDisplay.trim();
+
+      col.innerHTML = `
+        <div class="card comment-card p-3" style="background: rgba(255,255,255,0.7); border-radius: 12px;">
+          <div class="d-flex align-items-center mb-2" style="display:flex; justify-content:space-between;">
+            <div>
+              <span class="avatar">👤</span>
+              <strong>${escapeHTML(name)}</strong>
+            </div>
+            <span style="color: #facc15;">${starDisplay}</span>
+          </div>
+          <p style="text-align:left; margin-bottom:10px; font-size:0.95rem;">${escapeHTML(text)}</p>
+          <div class="d-flex justify-content-between align-items-center" style="display:flex; justify-content:flex-end;">
+            <button class="btn btn-sm like-btn" style="padding: 5px 10px; font-size:0.8rem; background:rgba(0,0,0,0.05); color:#333;">
+              👍 <span class="like-count">${likes}</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Like butonuna event ekle
+      const likeBtn = col.querySelector('.like-btn');
+      likeBtn.addEventListener('click', () => {
+        const likeCountSpan = likeBtn.querySelector('.like-count');
+        let currentLikes = parseInt(likeCountSpan.innerText);
+        currentLikes++;
+        likeCountSpan.innerText = currentLikes;
+        updateLikesInStorage(name, text, currentLikes);
+      });
+
+      return col;
+    }
+
+    // Yorum beğeni sayısını localStorage'da güncelle
+    function updateLikesInStorage(name, text, newLikes) {
+      let comments = JSON.parse(localStorage.getItem('comments')) || [];
+      comments = comments.map(c => {
+        if (c.name === name && c.text === text) {
+          return { ...c, likes: newLikes };
+        }
+        return c;
+      });
+      localStorage.setItem('comments', JSON.stringify(comments));
+    }
+
+    // Yorum ekleme işlemi
+    function addComment(event) {
+      event.preventDefault();
+      const nameInput = document.getElementById('name');
+      const commentInput = document.getElementById('comment');
+      const starsSelect = document.getElementById('stars');
+
+      const name = nameInput.value.trim();
+      const comment = commentInput.value.trim();
+      const stars = parseInt(starsSelect.value);
+
+      if (!name || !comment || !stars) return;
+
+      let comments = JSON.parse(localStorage.getItem('comments')) || [];
+      comments.unshift({ name, text: comment, stars, likes: 0 }); // En üste ekle
+
+      localStorage.setItem('comments', JSON.stringify(comments));
+
+      nameInput.value = '';
+      commentInput.value = '';
+      starsSelect.value = '';
+
+      loadComments();
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>"']/g, function (m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;',
+        }[m];
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadComments);
+  </script>
+  
+      <footer>
+    <div class="footer-content">
+      <span style="color: #764ba2; font-weight: 800;"><i class="fa-solid fa-plane"></i> ZAKAN BİLET © 2025</span>
+      <span class="divider">|</span>
+      <a href="giris.html" style="color: #4facfe;"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+      <a href="hakkimizda.html" style="color: #f72585;"><i class="fa-solid fa-circle-info"></i> Hakkımızda</a>
+      <a href="iletisim.html" style="color: #f8961e;"><i class="fa-solid fa-envelope"></i> İletişim</a>
+    </div>
+  </footer>
+</body>
+</html>
