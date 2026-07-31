@@ -1,99 +1,189 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Koltuk Seçimi</title>
-  
-  
-  <link rel="stylesheet" href="style.css" />
-  
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>İndirimli Koltuk Seçimi | ZAKAN BİLET</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <header id="title">
+        Koltuk Seçimi
+    </header>
 
-<div class="container my-5">
-  <div class="custom-card">
-    <h2 id="title">Koltuk Seçimi</h2>
+    <div class="container container-custom" style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding-bottom: 30px;">
+        
+        <div class="text-center mb-4" style="margin-bottom: 20px;">
+            <p id="departure-time" style="font-size: 1.1rem; color: #fff;">Kalkış: 20 Ocak 2025 15:30</p>
+        </div>
 
-    <div class="text-center mb-4">
-      <p class="fs-5" id="departure-time">Kalkış: 20 Ocak 2025 15:30</p>
-      <p class="fs-5" id="fiyat">Toplam Fiyat: 0 TL</p>
+        <div class="seat-selection">
+            <!-- VIP Koltuklar -->
+            <div class="VİP" data-seat="1A">
+                1A <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(VİP)</span>
+                <div class="price-note">: 150 $</div>
+            </div>
+            <div class="VİP" data-seat="2A">
+                2A <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(VİP)</span>
+                <div class="price-note">: 150 $</div>
+            </div>
+            <div class="VİP" data-seat="3A">
+                3A <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(VİP)</span>
+                <div class="price-note">: 150 $</div>
+            </div>
+            <div class="VİP" data-seat="4A">
+                4A <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(VİP)</span>
+                <div class="price-note">: 150 $</div>
+            </div>
+            <div class="VİP" data-seat="5A">
+                5A <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(VİP)</span>
+                <div class="price-note">: 150 $</div>
+            </div>
+            <div class="VİP" data-seat="6A">
+                6A <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(VİP)</span>
+                <div class="price-note">: 150 $</div>
+            </div>
+
+            <!-- Standart Koltuklar -->
+            <div class="STANDART" data-seat="1B">
+                1B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="2B">
+                2B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="3B">
+                3B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="4B">
+                4B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="5B">
+                5B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="6B">
+                6B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="7B">
+                7B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="8B">
+                8B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="9B">
+                9B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="10B">
+                10B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="11B">
+                11B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+            <div class="STANDART" data-seat="12B">
+                12B <br><span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">(STANDART)</span>
+                <div class="price-note">: 100 $</div>
+            </div>
+        </div>
+
+        <div class="seat-info" id="seat-info" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.2); margin-top: 20px;">
+            <p style="color: #fff;"> Seçilen Koltuklar: <span id="selected-seat" style="color: #4facfe;">Yok</span></p>
+            <p style="color: #fff;">💵 İndirimli Toplam Ücret: <span id="fiyat" style="color: #04e5bf; font-weight: bold; font-size: 1.2rem;">0 $</span></p>
+        </div>
+
+        <button class="submit-button btn btn-primary" onclick="goToPayment()" style="background: linear-gradient(135deg, #00f2fe, #4facfe); border: none; font-size: 1.1rem; padding: 12px; margin-top: 20px;">Ödeme Sayfasına Git</button>
     </div>
 
-    <div class="koltuklar" id="koltuklar"></div>
+    <footer>
+      <div class="footer-content">
+        <span style="color: #764ba2; font-weight: 800;"><i class="fa-solid fa-plane"></i> ZAKAN BİLET © 2025</span>
+        <span class="divider">|</span>
+        <a href="giris.html" style="color: #4facfe;"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
+        <a href="hakkimizda.html" style="color: #f72585;"><i class="fa-solid fa-circle-info"></i> Hakkımızda</a>
+        <a href="iletisim.html" style="color: #f8961e;"><i class="fa-solid fa-envelope"></i> İletişim</a>
+      </div>
+    </footer>
 
-    <div class="text-center mt-4">
-      <button class="btn btn-lg btn-custom px-5" onclick="goToPayment()">Ödeme Sayfasına Git</button>
-    </div>
-  </div>
-</div>
+    <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const kartAdi = urlParams.get('kart') || 'İndirimli Koltuk Seçimi';
+    const indirimOrani = parseFloat(urlParams.get('indirim')) || 0;
 
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const kartAdi = urlParams.get('kart') || 'Koltuk Seçimi';
-  const indirimOrani = parseFloat(urlParams.get('indirim')) || 0;
+    document.getElementById("title").textContent = kartAdi;
 
-  const selectedSeats = [];
-  const koltukFiyat = 100;
+    const passengerCount = localStorage.getItem('passengerCount') || 1;
+    const seats = document.querySelectorAll('.VİP, .STANDART');
+    let selectedSeats = [];
 
-  document.getElementById("title").textContent = kartAdi;
+    const vipPrice = 150;
+    const standartPrice = 100;
 
-  const koltuklarDiv = document.getElementById("koltuklar");
+    seats.forEach(seat => {
+        seat.addEventListener('click', () => {
+            const seatId = seat.getAttribute('data-seat');
 
-  for (let i = 1; i <= 20; i++) {
-    const koltuk = document.createElement("div");
-    koltuk.className = "koltuk";
-    koltuk.textContent = "Koltuk " + i;
-    koltuk.dataset.no = i;
+            if (selectedSeats.includes(seatId)) {
+                selectedSeats = selectedSeats.filter(id => id !== seatId);
+                seat.classList.remove('selected');
+            } else {
+                if (selectedSeats.length < passengerCount) {
+                    selectedSeats.push(seatId);
+                    seat.classList.add('selected');
+                } else {
+                    alert(`En fazla ${passengerCount} koltuk seçebilirsiniz.`);
+                }
+            }
+            calculatePrice();
+        });
+    });
 
-    koltuk.onclick = () => {
-      if (koltuk.classList.contains("disabled")) return;
+    function calculatePrice() {
+        document.getElementById('selected-seat').textContent = selectedSeats.length > 0 ? selectedSeats.join(', ') : 'Yok';
 
-      koltuk.classList.toggle("selected");
-      const no = koltuk.dataset.no;
+        let baseTotal = 0;
+        selectedSeats.forEach(seatId => {
+            const el = document.querySelector(`[data-seat="${seatId}"]`);
+            if (el.classList.contains('VİP')) baseTotal += vipPrice;
+            else baseTotal += standartPrice;
+        });
 
-      if (selectedSeats.includes(no)) {
-        selectedSeats.splice(selectedSeats.indexOf(no), 1);
-      } else {
-        selectedSeats.push(no);
-      }
-
-      calculatePrice();
-    };
-
-    koltuklarDiv.appendChild(koltuk);
-  }
-
-  function calculatePrice() {
-    let fiyat = koltukFiyat * selectedSeats.length;
-    fiyat -= fiyat * indirimOrani;
-    document.getElementById("fiyat").textContent = `Toplam Fiyat: ${fiyat.toFixed(2)} TL`;
-  }
-
-  function goToPayment() {
-    if (selectedSeats.length === 0) {
-      alert("Lütfen en az 1 koltuk seçiniz.");
-      return;
+        // Apply discount
+        let discountedTotal = baseTotal - (baseTotal * indirimOrani);
+        
+        document.getElementById("fiyat").textContent = discountedTotal.toFixed(2) + " $";
     }
-    let fiyat = koltukFiyat * selectedSeats.length;
-    fiyat -= fiyat * indirimOrani;
-    localStorage.setItem("Toplam Fiyat", fiyat.toFixed(2));
-    localStorage.setItem("Seçilen Koltuklar", selectedSeats.join(", "));
-    localStorage.setItem("Kalkış Saati", "20 Ocak 2025 15:30");
-    window.location.href = "odeme2.html";
-  }
-</script>
 
-     <footer>
-    <div class="footer-content">
-      <span style="color: #764ba2; font-weight: 800;"><i class="fa-solid fa-plane"></i> ZAKAN BİLET © 2025</span>
-      <span class="divider">|</span>
-      <a href="giris.html" style="color: #4facfe;"><i class="fa-solid fa-house"></i> Ana Sayfa</a>
-      <a href="hakkimizda.html" style="color: #f72585;"><i class="fa-solid fa-circle-info"></i> Hakkımızda</a>
-      <a href="iletisim.html" style="color: #f8961e;"><i class="fa-solid fa-envelope"></i> İletişim</a>
-    </div>
-  </footer>
+    function goToPayment() {
+        if (selectedSeats.length === 0) {
+            alert("Lütfen en az 1 koltuk seçiniz.");
+            return;
+        }
+        
+        let baseTotal = 0;
+        selectedSeats.forEach(seatId => {
+            const el = document.querySelector(`[data-seat="${seatId}"]`);
+            if (el.classList.contains('VİP')) baseTotal += vipPrice;
+            else baseTotal += standartPrice;
+        });
+        
+        let discountedTotal = baseTotal - (baseTotal * indirimOrani);
 
+        localStorage.setItem("Toplam Fiyat", discountedTotal.toFixed(2));
+        localStorage.setItem("Seçilen Koltuklar", selectedSeats.join(", "));
+        localStorage.setItem("Kalkış Saati", "20 Ocak 2025 15:30"); // varsayılan
+        
+        window.location.href = "kartodeme.html";
+    }
+    </script> 
 </body>
 </html>
